@@ -2,7 +2,7 @@ package core
 
 import (
 	"errors"
-	"fmt"
+	"jedis/internal/config"
 	"jedis/internal/constant"
 	"strconv"
 )
@@ -23,6 +23,8 @@ func cmdSET(args []string) []byte {
 			return Encode(errors.New("(error) ERR value is not an integer or out of range"), false)
 		}
 		ttlMs = ttlSec * 1000
+	} else {
+		ttlMs = int64(config.DefaultTTLSeconds * 1000)
 	}
 
 	dictStore.Set(key, dictStore.NewObj(value, uint64(ttlMs), oType, oEnc))
