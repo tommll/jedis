@@ -15,8 +15,6 @@ func cmdSET(args []string) []byte {
 	var key, value string
 	var ttlMs int64 = -1
 
-	fmt.Println(dictStore)
-
 	key, value = args[0], args[1]
 	oType, oEnc := deduceTypeString(value)
 	if len(args) > 2 {
@@ -38,8 +36,6 @@ func cmdGET(args []string) []byte {
 
 	key := args[0]
 	obj := dictStore.Get(key)
-
-	fmt.Println("Key", key, "GET result", obj)
 
 	if obj == nil {
 		return constant.RespNil
